@@ -27,12 +27,29 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log("OnCollisionEnter2D() - collided with: '" + other.gameObject.name + "' tagged: '" + other.gameObject.tag + "'");
-//        throw new System.NotImplementedException();
-//       switch (other.collider)
-//        {
-//            
-//        }
 
+        switch (other.gameObject.tag)
+        {
+            case "Memory":
+                Debug.Log("Player Controller: OnCollisionEnter2D(): collision with Memory: '"
+                          + other.gameObject.name + "'");
+                break;
+            
+            case "Obstacle":
+                Debug.Log("Player Controller: OnCollisionEnter2D(): collision with Obstacle: '"
+                          + other.gameObject.name + "'");
+                break;
+            
+            case "Passage":
+                Debug.Log("Player Controller: OnCollisionEnter2D(): collision with Passage: '"
+                          + other.gameObject.name + "'");
+                break;
+            
+            default:
+                Debug.Log("Player Controller: OnCollisionEnter2D(): collision with untagged object: '"
+                          + other.gameObject.name + "'");
+                // TODO: throw exception?
+                break;
+        }
     }
 }
