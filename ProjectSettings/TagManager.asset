@@ -7,6 +7,8 @@ TagManager:
   - Memory
   - Obstacle
   - Passage
+  - Wall
+  - Door
   layers:
   - Default
   - TransparentFX
