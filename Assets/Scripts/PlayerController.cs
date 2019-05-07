@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
     public string axisY = "Vertical";
 
     private Rigidbody2D rb;
-    public int sceneNumber = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -62,8 +61,7 @@ public class PlayerController : MonoBehaviour
                  */
                 Debug.Log("Player Controller: OnCollisionEnter2D(): collision with Passage: '"
                           + other.gameObject.name + "'");
-
-                LoadNextScene(++sceneNumber);
+                LoadNextScene(++GameState.SceneNumber);
                 // Go a little faster on the next level.
                 speed = speed + speedStep;
                 break;
@@ -87,12 +85,11 @@ public class PlayerController : MonoBehaviour
 
     void LoadNextScene(int sceneNumber)
     {
-        Scene scene;
         var parameters = new LoadSceneParameters(LoadSceneMode.Single);
         
         // throw new System.NotImplementedException();
         Debug.Log("PlayerController: LoadNextScene(): loading scene '" + sceneNumber + "'");
-        scene = SceneManager.LoadScene("Scene_" + sceneNumber, parameters);
+        Scene scene = SceneManager.LoadScene("Scene_" + sceneNumber, parameters);
         Debug.Log("sceneNumber = '" + sceneNumber + "'");
         Debug.Log("scene = '" + scene.name + "'");
     }
