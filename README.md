@@ -1,1 +1,3 @@
-# Unity Examples Basic 2D Sprite Controller
+# Unity Examples: Basic 2D Sprite Controller
+
+## Tags:
