@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class PlayerController : MonoBehaviour
     public string axisY = "Vertical";
 
     private Rigidbody2D rb;
-    private int sceneNumber = 0;
+    public int sceneNumber = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -56,9 +57,8 @@ public class PlayerController : MonoBehaviour
 
             case "Passage":
                 /*
-                 * This should probably be in the OnTriggerEnter() handler, so that the feel of entering
-                 * the passage is more realistic. But you could also set up an invisible sprite and destroy
-                 * it when you collide with it - or maybe just load the new scene...
+                 * This could also happen in an OnTriggerEnter() handler, but for now we set up an
+                 * invisible sprite and use the collision to trigger loading the next scene...
                  */
                 Debug.Log("Player Controller: OnCollisionEnter2D(): collision with Passage: '"
                           + other.gameObject.name + "'");
@@ -87,7 +87,13 @@ public class PlayerController : MonoBehaviour
 
     void LoadNextScene(int sceneNumber)
     {
+        Scene scene;
+        var parameters = new LoadSceneParameters(LoadSceneMode.Single);
+        
         // throw new System.NotImplementedException();
         Debug.Log("PlayerController: LoadNextScene(): loading scene '" + sceneNumber + "'");
+        scene = SceneManager.LoadScene("Scene_" + sceneNumber, parameters);
+        Debug.Log("sceneNumber = '" + sceneNumber + "'");
+        Debug.Log("scene = '" + scene.name + "'");
     }
 }
