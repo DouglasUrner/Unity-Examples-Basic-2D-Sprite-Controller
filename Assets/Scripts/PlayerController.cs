@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log("OnCollisionEnter2D() - collided with: " + other);
+        Debug.Log("OnCollisionEnter2D() - collided with: '" + other.gameObject.name + "' tagged: '" + other.gameObject.tag + "'");
 //        throw new System.NotImplementedException();
 //       switch (other.collider)
 //        {
