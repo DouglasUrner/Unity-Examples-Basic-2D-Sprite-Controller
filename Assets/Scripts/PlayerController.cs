@@ -59,6 +59,19 @@ public class PlayerController : MonoBehaviour
         var moveY = Input.GetAxisRaw(axisY);
 
         rb.velocity = new Vector2(moveX * speed, moveY * speed);
+
+        // Check to see if we have left the viewport - change scene if so.
+        if (CheckBounds()) {
+          LoadNextScene();
+        }
+    }
+
+    boolean CheckBounds() {
+      if (Math.abs(transform.position.x) > 4 ||
+        Math.abs(tranform.position.y) > 3)
+        return true;
+        else
+        return false;
     }
 
     void LoadNextScene()
