@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour
     public string axisY = "Vertical";
 
     private Rigidbody2D rb;
+    private SpriteRenderer sr;
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +42,7 @@ public class PlayerController : MonoBehaviour
          * all of the game objects, it can add up in non-obvious ways.
          */
         rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -60,6 +63,11 @@ public class PlayerController : MonoBehaviour
         var moveY = Input.GetAxisRaw(axisY);
 
         rb.velocity = new Vector2(moveX * speed, moveY * speed);
+        // If the sprite is moving, flip sprite to face in direction of X-axis movement.
+        if (moveX != 0)
+        {
+            sr.flipX = moveX < 0 ? true : false;            
+        }
 
         // Check to see if we have left the viewport - change scene if so.
         if (CheckBounds()) {
@@ -95,7 +103,7 @@ public class PlayerController : MonoBehaviour
       Scene scene = SceneManager.LoadScene("Scene_" + nextScene, parameters);
 
       // Trace execution - just in case...
-      Debug.Log("PlayerController: LoadNextScene(): loading scene '" + nextScene + "'");
+      Debug.Log("PlayerController: LoadNextScene(): loaded scene '" + scene.name + "'");
     }
 
     /*
