@@ -5,6 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
+    /*
+     * Public instance variables are visible in the Unity Inspector, they
+     * are a convenient way to set tuning variables. You can also declare
+     * variables that you would like to watch at runtime as public - even
+     * if you shouldn't be changing them manually.
+     */
     public float speed = 1.0f;
     public float speedStep = 0;
     public string axisX = "Horizontal";
@@ -15,12 +21,29 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        /*
+         * GetComponent() is a relatively expensive method, so by calling it
+         * here and caching the result as rb, we reduce the overhead in Update().
+         * Since the update overhead is split across the Update() methods of
+         * all of the game objects, it can add up in non-obvious ways.
+         */
         rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        /*
+         * Get the amount of X and Y axis movement the user is asking for.
+         *
+         * There are two methods for getting the user input, GetAxis() and GetAxisRaw().
+         *
+         * GetAxis() "smooths" the input and the resulting values will be a float
+         * between -1.0 and 1.0, with a middle value of 0 representing no movement.
+         * Negative values represent left and down, positive up and right.
+         *
+         * GetAxisRaw() does no smoothing, it returns either -1, 0, or 1.
+         */
         var moveX = Input.GetAxis(axisX);
         var moveY = Input.GetAxis(axisY);
 
@@ -61,7 +84,7 @@ public class PlayerController : MonoBehaviour
                  */
                 Debug.Log("Player Controller: OnCollisionEnter2D(): collision with Passage: '"
                           + other.gameObject.name + "'");
-                LoadNextScene(++GameState.SceneNumber);
+                LoadNextScene();
                 // Go a little faster on the next level.
                 speed = speed + speedStep;
                 break;
@@ -89,8 +112,6 @@ public class PlayerController : MonoBehaviour
         
         // throw new System.NotImplementedException();
         Debug.Log("PlayerController: LoadNextScene(): loading scene '" + sceneNumber + "'");
-        Scene scene = SceneManager.LoadScene("Scene_" + sceneNumber, parameters);
-        Debug.Log("sceneNumber = '" + sceneNumber + "'");
-        Debug.Log("scene = '" + scene.name + "'");
+        Scene scene = SceneManager.LoadScene("Scene_" + (++GameState.SceneNumber), parameters);
     }
 }
