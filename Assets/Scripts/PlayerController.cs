@@ -67,12 +67,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    bool CheckBounds() {
-      if (Math.Abs(transform.position.x) > 4 ||
-        Math.Abs(transform.position.y) > 3)
-        return true;
+    bool CheckBounds()
+    {
+        float viewPortWidth = 9.0f;  // Plus or minus from origin.
+        float viewPortHeight = 5.0f; // Ditto.
+        
+        if (Math.Abs(transform.position.x) > viewPortWidth ||
+            Math.Abs(transform.position.y) > viewPortHeight)
+            return true;
         else
-        return false;
+            return false;
     }
 
     void LoadNextScene()
@@ -83,13 +87,12 @@ public class PlayerController : MonoBehaviour
        * here (yet).
        */
       var parameters = new LoadSceneParameters(LoadSceneMode.Single);
+      var nextScene = ++GameState.SceneNumber;
 
-      Scene scene = SceneManager.LoadScene("Scene_" +
-        (++GameState.SceneNumber), parameters);
+      Scene scene = SceneManager.LoadScene("Scene_" + nextScene, parameters);
 
       // Trace execution - just in case...
-      Debug.Log("PlayerController: LoadNextScene(): loading scene '" +
-        sceneNumber + "'");
+      Debug.Log("PlayerController: LoadNextScene(): loading scene '" + nextScene + "'");
     }
 
     /*
