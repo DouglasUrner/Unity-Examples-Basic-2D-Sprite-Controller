@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,7 +11,7 @@ using UnityEngine.SceneManagement;
 ** Scene_0 starts here and ends below at the comment for Scene_1 - and so on.
 **
 ** Scene_0 handles minimal movement of the player. Scene_1 is loaded when the
-** player leaves the screne.
+** player leaves the wiewport.
 */
 
 public class PlayerController : MonoBehaviour
@@ -66,9 +67,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    boolean CheckBounds() {
-      if (Math.abs(transform.position.x) > 4 ||
-        Math.abs(tranform.position.y) > 3)
+    bool CheckBounds() {
+      if (Math.Abs(transform.position.x) > 4 ||
+        Math.Abs(transform.position.y) > 3)
         return true;
         else
         return false;
