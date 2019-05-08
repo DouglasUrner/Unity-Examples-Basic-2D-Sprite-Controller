@@ -67,6 +67,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /*
+     * Figure out if the player sprite has left the bounds of the game viewport.
+     */
     bool CheckBounds()
     {
         float viewPortWidth = 9.0f;  // Plus or minus from origin.
