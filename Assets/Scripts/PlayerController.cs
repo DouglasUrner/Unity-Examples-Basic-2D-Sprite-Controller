@@ -131,18 +131,16 @@ public class PlayerController : MonoBehaviour
      */
     void OnCollisionEnter2D(Collision2D other)
     {
+        Debug.Log("Player Controller: OnCollisionEnter2D(): collision with '"
+                  + other.gameObject.name + "', tagged '" + other.gameObject.tag + "'");
         switch (other.gameObject.tag)
         {
             case "Memory":
-                Debug.Log("Player Controller: OnCollisionEnter2D(): collision with Memory: '"
-                          + other.gameObject.name + "'");
                 // Inform the player about the memory.
                 Describe(other.gameObject);
                 break;
 
             case "Obstacle":
-                Debug.Log("Player Controller: OnCollisionEnter2D(): collision with Obstacle: '"
-                          + other.gameObject.name + "'");
                 // Destroy the obstacle.
                 Destroy(other.gameObject);
                 break;
@@ -152,8 +150,6 @@ public class PlayerController : MonoBehaviour
                  * This could also happen in an OnTriggerEnter() handler, but for now we set up an
                  * invisible sprite and use the collision to trigger loading the next scene...
                  */
-                Debug.Log("Player Controller: OnCollisionEnter2D(): collision with Passage: '"
-                          + other.gameObject.name + "'");
                 LoadNextScene();
                 // Go a little faster on the next level.
                 speed = speed + speedStep;
@@ -164,9 +160,7 @@ public class PlayerController : MonoBehaviour
                 break;
 
             default:
-                Debug.Log("Player Controller: OnCollisionEnter2D(): collision with untagged object: '"
-                          + other.gameObject.name + "'");
-                // TODO: throw exception?
+                // TODO: throw exception? What exception?
                 break;
         }
     }
