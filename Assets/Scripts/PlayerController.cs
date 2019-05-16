@@ -77,9 +77,17 @@ public class PlayerController : MonoBehaviour
 
     /*
      * Figure out if the player sprite has left the bounds of the game viewport.
+     *
+     * We only do this in Scene_0, the other scenes use colliders to bound the
+     * game world.
      */
     bool CheckBounds()
     {
+        // Only check in Scene_0.
+        if (SceneManager.GetActiveScene().name != "Scene_0")
+            return false;
+        
+        // TODO: figure out how to get bounds dynamically.
         float viewPortWidth = 9.0f;  // Plus or minus from origin.
         float viewPortHeight = 5.0f; // Ditto.
         
